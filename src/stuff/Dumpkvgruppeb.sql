@@ -94,3 +94,11 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2023-02-16 14:47:09
+
+/* user fuer die authentification */
+
+CREATE TABLE `kvgruppeb`.`users` (
+                                     `id` INT NOT NULL AUTO_INCREMENT,
+                                     `username` VARCHAR(45) NOT NULL,
+                                     `password` VARCHAR(45) NOT NULL,
+                                     PRIMARY KEY (`id`));
