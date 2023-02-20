@@ -54,8 +54,6 @@ public class PersonEntity {
         return id;
     }
 
-
-
     public String getTitel() {
         return titel;
     }
