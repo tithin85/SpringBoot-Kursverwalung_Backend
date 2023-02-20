@@ -11,7 +11,7 @@ public class PersonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "titel", length = 100, nullable = false)
+    @Column(name = "titel", length = 100)
     private String titel;
 
     @Column(name = "name", length = 100, nullable = false)
@@ -32,28 +32,29 @@ public class PersonEntity {
     @Column(name = "email", length = 100, nullable = false)
     private String email;
 
-    @Column(name = "telefon", length = 100, nullable = false)
+    @Column(name = "telefon", length = 100)
     private String telefon;
 
-    public PersonEntity(long id, String titel, String name, String vorname, String strasse, String plz, String ort, String email, String telefon) {
-        this.id = id;
-        this.titel = titel;
+    public PersonEntity(String name, String vorname, String strasse, String plz, String ort, String email) {
+
         this.name = name;
         this.vorname = vorname;
         this.strasse = strasse;
         this.plz = plz;
         this.ort = ort;
         this.email = email;
-        this.telefon = telefon;
+
+    }
+
+    public PersonEntity() {
+
     }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+
 
     public String getTitel() {
         return titel;
