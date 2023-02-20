@@ -1,7 +1,4 @@
 package com.example.gruppebjava.core.domain;
 
-public class Person {
-
-
-    }
-
+public class Zuordnung {
+}
