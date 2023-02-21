@@ -1,6 +1,7 @@
 package com.example.gruppebjava.application.rest;
 
 import com.example.gruppebjava.core.domain.KursEntity;
+import com.example.gruppebjava.core.domain.PersonEntity;
 import com.example.gruppebjava.core.service.KursService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,18 @@ public class KursController {
         KursEntity kurs=kursService.findKursById(id);
         return  new ResponseEntity<>(kurs, HttpStatus.OK);
     }
+    @PutMapping("/update")
+    public ResponseEntity<KursEntity> updateKurs(@RequestBody KursEntity kurs){
+        KursEntity updatetKurs = kursService.updateKurs(kurs);
+        return new ResponseEntity<>(updatetKurs, HttpStatus.OK);
+    }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteKurs(@PathVariable("id") Long id){
+        //<?> return anything
+        kursService.deleteKurs(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 
