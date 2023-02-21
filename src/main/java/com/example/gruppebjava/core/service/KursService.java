@@ -2,6 +2,7 @@ package com.example.gruppebjava.core.service;
 
 import com.example.gruppebjava.core.domain.KursEntity;
 import com.example.gruppebjava.core.repo.KursRepo;
+import jakarta.persistence.PreRemove;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +37,9 @@ public class KursService {
         return kursRepo.save(kurs);
     }
 
+
     public void deleteKurs(Long id){
-        kursRepo.deleteKursEntityById(id);
+        kursRepo.delete(findKursById(id));
     }
 
 
