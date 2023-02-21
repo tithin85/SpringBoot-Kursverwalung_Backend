@@ -20,6 +20,11 @@ public class PersonService {
     }
 
     public PersonEntity addPerson(PersonEntity person){
+
+        String pattern = ("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$");
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern);
+        java.util.regex.Matcher m = p.matcher(person.getEmail());
+        if( !m.matches()) return null;
         return personRepo.save(person);
 
     }
@@ -41,4 +46,7 @@ public class PersonService {
     public PersonEntity updatePerson(PersonEntity person) {
         return personRepo.save(person);
     }
+
+
+
 }
