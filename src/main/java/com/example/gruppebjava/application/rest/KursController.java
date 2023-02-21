@@ -1,0 +1,46 @@
+package com.example.gruppebjava.application.rest;
+
+import com.example.gruppebjava.core.domain.KursEntity;
+import com.example.gruppebjava.core.service.KursService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/kurs")
+
+public class KursController {
+    private final KursService kursService;
+
+    public KursController(KursService kursService) {
+        this.kursService = kursService;
+    }
+
+
+   @PostMapping("/add")
+    public ResponseEntity<KursEntity> addKurs(@RequestBody KursEntity kurs){
+        KursEntity newKurs =kursService.addKurs(kurs);
+        return  new ResponseEntity<>(newKurs, HttpStatus.CREATED);
+    }
+    @GetMapping("/all")
+    public ResponseEntity<List<KursEntity>> getAllKurse(){
+       List<KursEntity> kursEntityList=kursService.findAllKurse();
+        return  new ResponseEntity<>(kursEntityList, HttpStatus.OK);
+    }
+
+    @GetMapping("/find/{id}")
+    public ResponseEntity<KursEntity> getKursById(@PathVariable("id") Long id){
+        KursEntity kurs=kursService.findKursById(id);
+        return  new ResponseEntity<>(kurs, HttpStatus.OK);
+    }
+
+
+
+
+
+
+
+
+}
