@@ -26,6 +26,12 @@ public class PersonController {
         return new ResponseEntity<>(persons, HttpStatus.OK);
     }
 
+    @PostMapping("/add")
+    public ResponseEntity<PersonEntity> addEmployee(@RequestBody PersonEntity person){
+        PersonEntity newPerson = personService.addPerson(person);
+        return new ResponseEntity<>(newPerson, HttpStatus.OK);
+    }
+
     @GetMapping("/find/{id}")
 
     public ResponseEntity<PersonEntity> getPersonById(@PathVariable("id") Long id) {
