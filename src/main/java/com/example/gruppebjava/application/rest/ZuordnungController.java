@@ -27,8 +27,8 @@ public class ZuordnungController {
     }
 @PostMapping("/add")
 
-public ResponseEntity<Zuordnung> addAllZuordnungListe(@RequestBody PersonEntity person, KursEntity kurs) {
-    Zuordnung zuordnung = zuordnungService.addPersonAlsTeilnehmer(person, kurs);
-    return new ResponseEntity<>(zuordnung, HttpStatus.OK);
+public ResponseEntity<Zuordnung> addAllZuordnungListe(@RequestBody Zuordnung zuordnung) {
+    Zuordnung zu = zuordnungService.addPersonAlsTeilnehmer(zuordnung);
+    return new ResponseEntity<>(zu, HttpStatus.OK);
 }
 }
