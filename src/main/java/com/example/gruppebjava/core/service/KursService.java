@@ -21,7 +21,8 @@ public class KursService {
     }
 
     public KursEntity addKurs(KursEntity kurs){
-        kurs.setKursCode(UUID.randomUUID().toString());
+        kurs.setMwstEuro();
+        kurs.setGebuehrNetto();
         return kursRepo.save(kurs);
     }
 

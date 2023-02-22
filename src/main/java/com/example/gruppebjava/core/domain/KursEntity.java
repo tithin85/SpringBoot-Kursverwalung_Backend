@@ -1,6 +1,9 @@
 package com.example.gruppebjava.core.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -12,32 +15,43 @@ public class KursEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false,updatable = false)
     private long id;
+
+    @NotBlank(message = "Kurs name muss mindestens einzeichen.")
     @Column(nullable = false)
+    @Size(min = 1, max = 64)
     private String name;
+    @Min(1)
     @Column(nullable = false)
-    private String anzahlTage;
+    private int anzahlTage;
+    @Min(1)
+    @Max(7)
     @Column(nullable = false)
-    private String wieOftinWoche;
+    private int wieOftinWoche;
+    @Future
+    @DateTimeFormat
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Date startDatum;
 
     @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
+    @Column
     private Date endeDatum;
     @Column
     private int aktuelleTnZahl;
+    @Min(1)
     @Column(nullable = false)
     private int minTnZahl;
+    @Min(1)
     @Column(nullable = false)
     private int maxTnZahl;
     @Column
     private int freiePlaetze;
     @Column(nullable = false)
+    @Digits(integer = 10, fraction = 2)
     private double gebuehrBrutto;
     @Column
     private double gebuehrNetto;
-    @Column(nullable = false)
+    @Column
     private double mwstEuro;
     @Column(nullable = false)
     private double mwstProzent;
@@ -45,15 +59,14 @@ public class KursEntity implements Serializable {
     private String kursBeschreibung;
     @Column(nullable = false)
     private String status;
-    @Column(nullable = false,updatable = false)
-    private String kursCode;
+
 
     public KursEntity() {
     }
 
-    public KursEntity(String name, String anzahlTage, String wieOftinWoche, Date startDatum,
+    public KursEntity(String name, int anzahlTage, int wieOftinWoche, Date startDatum,
                       int minTnZahl, int maxTnZahl, double gebuehrBrutto, double mwstProzent,
-                      String kursBeschreibung, String status,String kursCode) {
+                      String kursBeschreibung, String status) {
         this.name = name;
         this.anzahlTage = anzahlTage;
         this.wieOftinWoche = wieOftinWoche;
@@ -64,7 +77,7 @@ public class KursEntity implements Serializable {
         this.mwstProzent = mwstProzent;
         this.kursBeschreibung = kursBeschreibung;
         this.status = status;
-        this.kursCode=kursCode;
+
     }
 
     public long getId() {
@@ -83,19 +96,19 @@ public class KursEntity implements Serializable {
         this.name = name;
     }
 
-    public String getAnzahlTage() {
+    public int getAnzahlTage() {
         return anzahlTage;
     }
 
-    public void setAnzahlTage(String anzahlTage) {
+    public void setAnzahlTage(int anzahlTage) {
         this.anzahlTage = anzahlTage;
     }
 
-    public String getWieOftinWoche() {
+    public int getWieOftinWoche() {
         return wieOftinWoche;
     }
 
-    public void setWieOftinWoche(String wieOftinWoche) {
+    public void setWieOftinWoche(int wieOftinWoche) {
         this.wieOftinWoche = wieOftinWoche;
     }
 
@@ -112,7 +125,9 @@ public class KursEntity implements Serializable {
     }
 
     public void setEndeDatum(Date endeDatum) {
-        this.endeDatum = endeDatum;
+        long dat = startDatum.getTime() + ((Math.round((float) getAnzahlTage() / getWieOftinWoche())) * 7 * 86400000L);
+        this.endeDatum = new Date(dat);
+
     }
 
     public int getAktuelleTnZahl() {
@@ -159,16 +174,8 @@ public class KursEntity implements Serializable {
         return gebuehrNetto;
     }
 
-    public void setGebuehrNetto(double gebuehrNetto) {
-        this.gebuehrNetto = gebuehrNetto;
-    }
-
-    public double getMwstEuro() {
-        return mwstEuro;
-    }
-
-    public void setMwstEuro(double mwstEuro) {
-        this.mwstEuro = mwstEuro;
+    public void setGebuehrNetto() {
+        this.gebuehrNetto = getGebuehrBrutto()-(getGebuehrBrutto() * (getMwstProzent() / 100));
     }
 
     public double getMwstProzent() {
@@ -178,6 +185,16 @@ public class KursEntity implements Serializable {
     public void setMwstProzent(double mwstProzent) {
         this.mwstProzent = mwstProzent;
     }
+
+
+    public double getMwstEuro() {
+        return mwstEuro;
+    }
+
+    public void setMwstEuro() {
+        this.mwstEuro=getGebuehrBrutto() * (getMwstProzent()/100);
+    }
+
 
     public String getKursBeschreibung() {
         return kursBeschreibung;
@@ -195,13 +212,7 @@ public class KursEntity implements Serializable {
         this.status = status;
     }
 
-    public String getKursCode() {
-        return kursCode;
-    }
 
-    public void setKursCode(String kursCode) {
-        this.kursCode = kursCode;
-    }
 
     @Override
     public String toString() {
@@ -222,9 +233,9 @@ public class KursEntity implements Serializable {
                 ", mwstProzent=" + mwstProzent +
                 ", kursBeschreibung='" + kursBeschreibung + '\'' +
                 ", status='" + status + '\'' +
-                ", kursCode='" + kursCode + '\'' +
-                '}';
+               '}';
     }
+
 
 
 }
