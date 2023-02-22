@@ -31,4 +31,9 @@ public ResponseEntity<Zuordnung> addAllZuordnungListe(@RequestBody Zuordnung zuo
     Zuordnung zu = zuordnungService.addPersonAlsTeilnehmer(zuordnung);
     return new ResponseEntity<>(zu, HttpStatus.OK);
 }
+@DeleteMapping("/delete/{personId}/{kursId}")
+    public ResponseEntity<?>deleteById(@PathVariable("personId")long personId,@PathVariable("kursId")long kursId){
+        zuordnungService.deleteZuordnung(personId, kursId);
+        return new ResponseEntity<>(HttpStatus.OK);
+}
 }

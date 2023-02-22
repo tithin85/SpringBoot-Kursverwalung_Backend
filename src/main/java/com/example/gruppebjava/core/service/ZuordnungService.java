@@ -3,6 +3,7 @@ package com.example.gruppebjava.core.service;
 import com.example.gruppebjava.core.domain.KursEntity;
 import com.example.gruppebjava.core.domain.PersonEntity;
 import com.example.gruppebjava.core.domain.Zuordnung;
+import com.example.gruppebjava.core.domain.ZuordnungId;
 import com.example.gruppebjava.core.repo.KursRepo;
 import com.example.gruppebjava.core.repo.PersonRepo;
 import com.example.gruppebjava.core.repo.ZuordnungRepo;
@@ -43,4 +44,9 @@ public class ZuordnungService {
     public List<Zuordnung> findZuordnungListe() {
     return zuordnungRepo.findAll();
     }
+    public void deleteZuordnung(long personId,long kursId){
+        ZuordnungId id=new ZuordnungId(personId,kursId);
+    if(zuordnungRepo.existsById(id))zuordnungRepo.deleteById(id);
+    }
+
 }
