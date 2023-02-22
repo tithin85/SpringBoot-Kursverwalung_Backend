@@ -44,13 +44,12 @@ public class PersonController {
         PersonEntity updatePerson = personService.updatePerson(person);
         return new ResponseEntity<>(updatePerson, HttpStatus.OK);
     }
-    @DeleteMapping("/delete{id}")
-    public ResponseEntity<?> deletePerson(@PathVariable ("id") Long id){
-        //<?> return anything
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deletePerson(@PathVariable ("id") Long id) {
         personService.deletePerson(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
 
 }
