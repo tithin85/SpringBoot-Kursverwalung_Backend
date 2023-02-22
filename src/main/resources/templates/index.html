@@ -4,6 +4,48 @@
     <title>Online Kursverwaltung</title>
 </head>
 <body>
-<h1>Startseite der Online Kursverwaltung</h1>
+<div id="content">
+<form   id="KursDetails">
+
+    <label for="name">Kurs Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+
+    <label for="anzahlTage">Anzahl Tage:</label><br>
+    <input type="number" id="anzahlTage" name="anzahlTage"><br>
+
+    <label for="wieOftinWoche">Wie oft in Woche:</label><br>
+    <input type="number" id="wieOftinWoche" name="wieOftinWoche"><br>
+
+    <label for="startDatum">Start Datum:</label><br>
+    <input type="date" id="startDatum" name="startDatum"><br>
+
+    <label for="minTnZahl">Min Teilnehmer:</label><br>
+    <input type="number" id="minTnZahl" name="minTnZahl"><br>
+
+    <label for="maxTnZahl">Max Teilnehmer:</label><br>
+    <input type="number" id="maxTnZahl" name="maxTnZahl"><br>
+
+    <label for="gebuehrBrutto">Gebuehr Brutto:</label><br>
+    <input type="number" id="gebuehrBrutto" name="gebuehrBrutto"><br>
+
+    <label for="mwstProzent">mwstProzent(%):</label><br>
+    <input type="number" id="mwstProzent" name="mwstProzent"><br>
+
+
+    <label for="kursBeschreibung">Kurs Beschreibung</label><br>
+    <input type="text" id="kursBeschreibung" name="kursBeschreibung"><br>
+
+    <label for="status">Status</label><br>
+    <input type="text" id="status" name="status"><br>
+
+
+
+    <input type="submit" value="Submit" id="SubmitButton">
+
+</form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"> </script>
+<script src="ajax.js"></script>
 </body>
 </html>
+
