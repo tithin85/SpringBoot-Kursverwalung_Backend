@@ -1,6 +1,10 @@
 package com.example.gruppebjava.core.domain;
 
+import jakarta.persistence.Embeddable;
+
 import java.io.Serializable;
+import java.util.Objects;
+
 
 public class ZuordnungId implements Serializable {
 
@@ -11,8 +15,21 @@ public class ZuordnungId implements Serializable {
     public ZuordnungId(){}
 
 
-    public ZuordnungId(PersonEntity person, KursEntity kurs){
-        this.personId = person.getId();
-        this.kursId = kurs.getId();
+    public ZuordnungId(Long personId, Long kursId){
+        this.personId = personId;
+        this.kursId = kursId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ZuordnungId that = (ZuordnungId) o;
+        return Objects.equals(personId, that.personId) && Objects.equals(kursId, that.kursId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personId, kursId);
     }
 }

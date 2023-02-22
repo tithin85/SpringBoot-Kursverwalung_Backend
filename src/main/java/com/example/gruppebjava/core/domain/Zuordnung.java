@@ -1,28 +1,44 @@
 package com.example.gruppebjava.core.domain;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @IdClass(ZuordnungId.class)
+
 public class Zuordnung implements Serializable {
 
     @Id
-
     private Long personId;
-
     @Id
     private Long kursId;
 
     private boolean teilnehmer;
 
+    public Zuordnung(Long person,Long kurs,boolean teilnehmer){
+        this.personId=person;
+        this.kursId=kurs;
+        this.teilnehmer=teilnehmer;
+    }
     public Zuordnung(){}
 
+    public Long getPersonId() {
+        return personId;
+    }
 
+    public void setPersonId(Long personId) {
+        this.personId = personId;
+    }
+
+    public Long getKursId() {
+        return kursId;
+    }
+
+    public void setKursId(Long kursId) {
+        this.kursId = kursId;
+    }
 
     public boolean isTeilnehmer() {
         return teilnehmer;
