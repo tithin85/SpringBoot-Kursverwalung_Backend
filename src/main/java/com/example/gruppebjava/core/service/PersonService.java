@@ -38,8 +38,14 @@ public class PersonService {
     }
 
     public void deletePerson (Long id){
+        /*List<PersonEntity>persons=personRepo.findAll();
+        for(PersonEntity person:persons){
+            if(person.getId()==id)personRepo.delete(person);
+        }*/
+        personRepo.deleteById(id);
 
-        personRepo.deletePersonEntityById(id);
+        personRepo.deleteById(id);
+
 
     }
 
