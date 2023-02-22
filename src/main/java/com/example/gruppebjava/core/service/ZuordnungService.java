@@ -10,6 +10,7 @@ import com.example.gruppebjava.core.repo.ZuordnungRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,36 +18,88 @@ public class ZuordnungService {
     private final ZuordnungRepo zuordnungRepo;
     private final PersonRepo personRepo;
     private final KursRepo kursRepo;
-@Autowired
-    public ZuordnungService(ZuordnungRepo zuordnungRepo, PersonRepo personRepo,KursRepo kursRepo) {
+
+    @Autowired
+    public ZuordnungService(ZuordnungRepo zuordnungRepo, PersonRepo personRepo, KursRepo kursRepo) {
         this.zuordnungRepo = zuordnungRepo;
-        this.personRepo=personRepo;
-        this.kursRepo=kursRepo;
+        this.personRepo = personRepo;
+        this.kursRepo = kursRepo;
     }
 
-    public Zuordnung addPersonAlsTeilnehmer(  Zuordnung zuordnung){
+    public Zuordnung addPersonAlsTeilnehmer(Zuordnung zuordnung) {
 
-    List<PersonEntity>personlist=personRepo.findAll();
-    List<KursEntity>kursList=kursRepo.findAll();
-    for(PersonEntity person:personlist){
-        if(person.getId()==zuordnung.getPersonId()){
-            for(KursEntity kurs:kursList){
-                if(kurs.getId()==zuordnung.getKursId())return zuordnungRepo.save(zuordnung);
+        List<PersonEntity> personlist = personRepo.findAll();
+        List<KursEntity> kursList = kursRepo.findAll();
+        for (PersonEntity person : personlist) {
+            if (person.getId() == zuordnung.getPersonId()) {
+                for (KursEntity kurs : kursList) {
+                    if (kurs.getId() == zuordnung.getKursId()) return zuordnungRepo.save(zuordnung);
+                }
             }
         }
-    }
 
 
-    return null;
+        return null;
 
     }
 
     public List<Zuordnung> findZuordnungListe() {
-    return zuordnungRepo.findAll();
-    }
-    public void deleteZuordnung(long personId,long kursId){
-        ZuordnungId id=new ZuordnungId(personId,kursId);
-    if(zuordnungRepo.existsById(id))zuordnungRepo.deleteById(id);
+        return zuordnungRepo.findAll();
     }
 
+    public void deleteZuordnung(long personId, long kursId) {
+        ZuordnungId id = new ZuordnungId(personId, kursId);
+        if (zuordnungRepo.existsById(id)) zuordnungRepo.deleteById(id);
+    }
+
+    public List<Zuordnung> personalsTeilnehmer(long personId) {
+        List<Zuordnung> zu = findZuordnungListe();
+        List<Zuordnung> resultList = new ArrayList<>();
+        for (Zuordnung z : zu) {
+            if (z.getPersonId() == personId && z.isTeilnehmer()) {
+                resultList.add(z);
+            }
+
+        }
+        return resultList;
+    }
+
+    public List<Zuordnung> personalsInteressanter(long personId) {
+        List<Zuordnung> zu = findZuordnungListe();
+        List<Zuordnung> resultList = new ArrayList<>();
+        for (Zuordnung z : zu) {
+            if (z.getPersonId() == personId && !z.isTeilnehmer()) {
+                resultList.add(z);
+            }
+
+        }
+        return resultList;
+    }
+
+    public List<Zuordnung> teilnehmerListe(long kursId) {
+        List<Zuordnung> zu = findZuordnungListe();
+        List<Zuordnung> resultList = new ArrayList<>();
+        for (Zuordnung z : zu) {
+            if (z.getKursId() == kursId && z.isTeilnehmer()) {
+                resultList.add(z);
+            }
+
+        }
+        return resultList;
+
+
+    }
+    public List<Zuordnung> interessanterListe(long kursId) {
+        List<Zuordnung> zu = findZuordnungListe();
+        List<Zuordnung> resultList = new ArrayList<>();
+        for (Zuordnung z : zu) {
+            if (z.getKursId() == kursId && !z.isTeilnehmer()) {
+                resultList.add(z);
+            }
+
+        }
+        return resultList;
+
+
+    }
 }
