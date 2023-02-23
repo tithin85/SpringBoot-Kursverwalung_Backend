@@ -124,7 +124,7 @@ public class KursEntity implements Serializable {
         return endeDatum;
     }
 
-    public void setEndeDatum(Date endeDatum) {
+    public void setEndeDatum() {
         long dat = startDatum.getTime() + ((Math.round((float) getAnzahlTage() / getWieOftinWoche())) * 7 * 86400000L);
         this.endeDatum = new Date(dat);
 

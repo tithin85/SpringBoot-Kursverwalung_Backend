@@ -1,13 +1,13 @@
 package com.example.gruppebjava.application.rest;
 
 import com.example.gruppebjava.core.domain.KursEntity;
-import com.example.gruppebjava.core.domain.PersonEntity;
 import com.example.gruppebjava.core.service.KursService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/kurs")
@@ -20,12 +20,13 @@ public class KursController {
     }
 
 
-   @PostMapping("/add")
+   @PostMapping(value = "/add")
     public ResponseEntity<KursEntity> addKurs(@RequestBody KursEntity kurs){
         KursEntity newKurs =kursService.addKurs(kurs);
         return  new ResponseEntity<>(newKurs, HttpStatus.CREATED);
     }
     @GetMapping("/all")
+    @CrossOrigin("http://localhost:4200")
     public ResponseEntity<List<KursEntity>> getAllKurse(){
        List<KursEntity> kursEntityList=kursService.findAllKurse();
         return  new ResponseEntity<>(kursEntityList, HttpStatus.OK);
@@ -43,7 +44,7 @@ public class KursController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteKurs(@PathVariable("id") Long id){
+    public ResponseEntity<KursEntity> deleteKurs(@PathVariable("id") Long id){
         //<?> return anything
         kursService.deleteKurs(id);
         return new ResponseEntity<>(HttpStatus.OK);

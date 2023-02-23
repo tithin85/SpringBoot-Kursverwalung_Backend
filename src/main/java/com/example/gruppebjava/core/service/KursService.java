@@ -2,12 +2,11 @@ package com.example.gruppebjava.core.service;
 
 import com.example.gruppebjava.core.domain.KursEntity;
 import com.example.gruppebjava.core.repo.KursRepo;
-import jakarta.persistence.PreRemove;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @Service
 public class KursService {
@@ -23,6 +22,7 @@ public class KursService {
     public KursEntity addKurs(KursEntity kurs){
         kurs.setMwstEuro();
         kurs.setGebuehrNetto();
+        kurs.setEndeDatum();
         return kursRepo.save(kurs);
     }
 
