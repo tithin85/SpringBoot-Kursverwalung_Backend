@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <head>
     <title>Online Kursverwaltung</title>
 </head>
 <body>
 <div id="content">
-<form   id="KursDetails">
+<form  action="/kurs/add" method="post">
 
     <label for="name">Kurs Name:</label><br>
     <input type="text" id="name" name="name"><br>
@@ -41,12 +41,12 @@
 
 
 
-    <input type="submit" value="Submit" id="SubmitButton">
+    <input type="submit" value="Submit" id="SubmitButton" >
 
 </form>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"> </script>
-<script src="ajax.js"></script>
+<script src="/templates/ajax.js"></script>
 </body>
 </html>
 

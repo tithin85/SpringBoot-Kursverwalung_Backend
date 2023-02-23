@@ -1,0 +1,58 @@
+kurs
+
+{
+
+"name": "Python2",
+"anzahlTage": "15",
+"wieOftinWoche": "2",
+"startDatum": "2025-01-01",
+"endeDatum": "2025-05-05",
+"aktuelleTnZahl":"5",
+"minTnZahl": "1",
+"maxTnZahl": "6",
+"freiePlaetze":"9",
+"gebuehrBrutto":"1200.0",
+"mwstEuro": "10.0",
+"mwstProzent": "10.0",
+"kursBeschreibung":"asdadsasd",
+"status":"Active"
+
+
+}
+
+
+person
+
+{
+"id": 1,
+"titel": null,
+"name": "Ozge",
+"vorname": "Thiel",
+"strasse": "lulu str",
+"plz": "01211",
+"ort": "Bremen",
+"email": "d.@gmail.com",
+"telefon": null
+},
+{
+"id": 2,
+"titel": "dr",
+"name": "Paul",
+"vorname": "Tomy",
+"strasse": "xx str",
+"plz": "215",
+"ort": "Bremen",
+"email": "d.@gmail.com",
+"telefon": "2154"
+},
+{
+"id": 3,
+"titel": "dr",
+"name": "Mike",
+"vorname": "Tomy",
+"strasse": "xx str",
+"plz": "215",
+"ort": "Bremen",
+"email": "c@gmail.com",
+"telefon": "2154"
+}
