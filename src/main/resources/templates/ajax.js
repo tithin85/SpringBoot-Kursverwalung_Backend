@@ -2,15 +2,16 @@
 
 $('#SubmitButton').click(function (){
 
+
     $.ajax({
 
         type:'POST',
         contentType:'application/json;charset=utf-8',
-        url:"http://localhost:8080/kurs/add",
+        url:"/kurs/add",
         data:JSON.stringify({
             name: $('#name').val(),
             anzahlTage: $('#anzahlTage').val(),
-            wieOftinWoch: $('#wieOftinWoch').val(),
+            wieOftinWoche: $('#wieOftinWoche').val(),
             startDatum: $('#startDatum').val(),
             minTnZahl: $('#minTnZahl').val(),
             maxTnZahl: $('#maxTnZahl').val(),
@@ -23,13 +24,13 @@ $('#SubmitButton').click(function (){
         }),
 
 
-        success:function(){
-            console.log("succes");
+        success:function(data){
+            console.log(data);
 
         },
 
-        error:function (error){
-            console.log("error");
+        error:function (err){
+            console.log(err);
         }
 
 
