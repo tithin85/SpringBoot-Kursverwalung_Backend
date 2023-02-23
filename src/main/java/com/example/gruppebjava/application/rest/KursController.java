@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/kurs")
 
@@ -20,7 +21,7 @@ public class KursController {
     }
 
 
-   @PostMapping("/add")
+   @PostMapping(value = "/add")
     public ResponseEntity<KursEntity> addKurs(@RequestBody KursEntity kurs){
         KursEntity newKurs =kursService.addKurs(kurs);
         return  new ResponseEntity<>(newKurs, HttpStatus.CREATED);
@@ -43,7 +44,7 @@ public class KursController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteKurs(@PathVariable("id") Long id){
+    public ResponseEntity<KursEntity> deleteKurs(@PathVariable("id") Long id){
         //<?> return anything
         kursService.deleteKurs(id);
         return new ResponseEntity<>(HttpStatus.OK);
