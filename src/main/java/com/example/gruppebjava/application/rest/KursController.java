@@ -1,7 +1,6 @@
 package com.example.gruppebjava.application.rest;
 
 import com.example.gruppebjava.core.domain.KursEntity;
-import com.example.gruppebjava.core.domain.PersonEntity;
 import com.example.gruppebjava.core.service.KursService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
