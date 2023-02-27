@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th=xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8"/>
+<head>
+    <title>Online Kursverwaltung</title>
+</head>
+<body>
+<div id="content">
+    <form action="#" th:action="@{/kurs/add}" th:object="${kurs}" method="post">
+
+        <label for="name">Kurs Name:</label><br>
+        <input type="text" id="name" th:field="${kurs.name}" name="name"><br>
+
+        <label for="anzahlTage">Anzahl Tage:</label><br>
+        <input type="number" id="anzahlTage" th:field="${kurs.anzahlTage} "><br>
+
+        <label for="wieOftinWoche">Wie oft in Woche:</label><br>
+        <input type="number" id="wieOftinWoche" th:field="${kurs.wieOftinWoche}"><br>
+
+        <label for="startDatum">Start Datum:</label><br>
+        <input type="date" id="startDatum" th:field="${kurs.startDatum}"><br>
+
+        <label for="minTnZahl">Min Teilnehmer:</label><br>
+        <input type="number" id="minTnZahl" th:field="${kurs.minTnZahl}"><br>
+
+        <label for="maxTnZahl">Max Teilnehmer:</label><br>
+        <input type="number" id="maxTnZahl" th:field="${kurs.maxTnZahl}"><br>
+
+        <label for="gebuehrBrutto">Gebuehr Brutto:</label><br>
+        <input type="number" id="gebuehrBrutto" th:field="${kurs.gebuehrBrutto}"><br>
+
+        <label for="mwstProzent">mwstProzent(%):</label><br>
+        <input type="number" id="mwstProzent" th:field="${kurs.mwstProzent}"><br>
+
+
+        <label for="kursBeschreibung">Kurs Beschreibung</label><br>
+        <input type="text" id="kursBeschreibung" th:field="${kurs.kursBeschreibung}"><br>
+
+        <label for="status">Status</label><br>
+        <input type="text" id="status" th:field="${kurs.status}"><br>
+
+
+        <input type="submit" value="Submit"/>
+
+    </form>
+</div>
+
+</body>
+</html>
+

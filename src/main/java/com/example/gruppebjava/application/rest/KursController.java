@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/kurs")
+@CrossOrigin("http://localhost:4200")
 
 public class KursController {
     private final KursService kursService;
@@ -26,6 +27,7 @@ public class KursController {
         KursEntity newKurs =kursService.addKurs(kurs);
         return  new ResponseEntity<>(newKurs, HttpStatus.CREATED);
     }
+
     @GetMapping("/all")
     public ResponseEntity<List<KursEntity>> getAllKurse(){
        List<KursEntity> kursEntityList=kursService.findAllKurse();
