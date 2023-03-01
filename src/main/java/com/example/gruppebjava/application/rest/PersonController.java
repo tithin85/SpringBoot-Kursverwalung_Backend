@@ -49,9 +49,10 @@ public class PersonController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deletePerson(@PathVariable ("id") Long id) {
+    public ResponseEntity<List<PersonEntity>> deletePerson(@PathVariable ("id") Long id) {
         personService.deletePerson(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+
+        return getAllPersons();
     }
 
 
