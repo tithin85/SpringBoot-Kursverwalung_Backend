@@ -89,9 +89,19 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     http.cors().and().csrf().disable()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-        .authorizeRequests().requestMatchers("/api/auth/**").permitAll()
+        .authorizeHttpRequests().requestMatchers("/api/auth/**").permitAll()
         .requestMatchers("/api/test/**").permitAll()
         .anyRequest().authenticated();
+
+/*    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+      return http.csrf().disable()
+              .authorizeHttpRequests()
+              .requestMatchers("/person/welcome","/person/personen","/user/newUser","/user/users").permitAll()
+              .and()
+              .authorizeHttpRequests().requestMatchers("/person/**").authenticated()
+              .and().formLogin()
+              .and().build();
+    }*/
     
     http.authenticationProvider(authenticationProvider());
 
