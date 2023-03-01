@@ -43,9 +43,9 @@ public class PersonController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<PersonEntity> updatePerson(@RequestBody PersonEntity person){
+    public ResponseEntity<List<PersonEntity>> updatePerson(@RequestBody PersonEntity person){
         PersonEntity updatePerson = personService.updatePerson(person);
-        return new ResponseEntity<>(updatePerson, HttpStatus.OK);
+        return getAllPersons();
     }
 
     @DeleteMapping("/delete/{id}")
