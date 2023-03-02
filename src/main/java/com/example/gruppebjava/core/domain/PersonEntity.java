@@ -11,6 +11,8 @@ public class PersonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "anrede", length = 100)
+    private String anrede;
     @Column(name = "titel", length = 100)
     private String titel;
 
@@ -98,6 +100,10 @@ public class PersonEntity {
         return ort;
     }
 
+    public String getAnrede() { return anrede; }
+
+    public void setAnrede(String anrede) { this.anrede = anrede; }
+
     public void setOrt(String ort) {
         this.ort = ort;
     }
@@ -134,6 +140,7 @@ public class PersonEntity {
     public String toString() {
         return "PersonEntity{" +
                 "id=" + id +
+                ", anrede='" + anrede + '\'' +
                 ", titel='" + titel + '\'' +
                 ", name='" + name + '\'' +
                 ", vorname='" + vorname + '\'' +
