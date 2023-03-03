@@ -52,36 +52,37 @@ public class ZuordnungService {
         if (zuordnungRepo.existsById(id)) zuordnungRepo.deleteById(id);
     }
 
-    public List<Zuordnung> personalsTeilnehmer(long personId) {
+    public List<KursEntity> personalsTeilnehmer(long personId) {
         List<Zuordnung> zu = findZuordnungListe();
-        List<Zuordnung> resultList = new ArrayList<>();
+        List<KursEntity> resultList = new ArrayList<>();
         for (Zuordnung z : zu) {
             if (z.getPersonId() == personId && z.isTeilnehmer()) {
-                resultList.add(z);
+
+                resultList.add(kursRepo.findKursEntityById(z.getKursId()));
             }
 
         }
         return resultList;
     }
 
-    public List<Zuordnung> personalsInteressanter(long personId) {
+    public List<KursEntity> personalsInteressanter(long personId) {
         List<Zuordnung> zu = findZuordnungListe();
-        List<Zuordnung> resultList = new ArrayList<>();
+        List<KursEntity> resultList = new ArrayList<>();
         for (Zuordnung z : zu) {
             if (z.getPersonId() == personId && !z.isTeilnehmer()) {
-                resultList.add(z);
+                resultList.add(kursRepo.findKursEntityById(z.getKursId()));
             }
 
         }
         return resultList;
     }
 
-    public List<Zuordnung> teilnehmerListe(long kursId) {
+    public List<PersonEntity> teilnehmerListe(long kursId) {
         List<Zuordnung> zu = findZuordnungListe();
-        List<Zuordnung> resultList = new ArrayList<>();
+        List<PersonEntity> resultList = new ArrayList<>();
         for (Zuordnung z : zu) {
             if (z.getKursId() == kursId && z.isTeilnehmer()) {
-                resultList.add(z);
+                resultList.add(personRepo.findPersonEntityById(z.getPersonId()));
             }
 
         }
@@ -89,17 +90,44 @@ public class ZuordnungService {
 
 
     }
-    public List<Zuordnung> interessanterListe(long kursId) {
+
+    public List<PersonEntity> interessanterListe(long kursId) {
         List<Zuordnung> zu = findZuordnungListe();
-        List<Zuordnung> resultList = new ArrayList<>();
+        List<PersonEntity> resultList = new ArrayList<>();
         for (Zuordnung z : zu) {
             if (z.getKursId() == kursId && !z.isTeilnehmer()) {
-                resultList.add(z);
+                resultList.add(personRepo.findPersonEntityById(z.getPersonId()));
             }
 
         }
         return resultList;
 
+
+    }
+
+    public List<PersonEntity> remainingPersonen(long kursId) {
+        List<PersonEntity> resultList = personRepo.findAll();
+        for (PersonEntity person : teilnehmerListe(kursId)) {
+            resultList.remove(person);
+        }
+        for (PersonEntity person : interessanterListe(kursId)) {
+            resultList.remove(person);
+
+        }
+        return resultList;
+
+    }
+
+    public List<KursEntity> remainingKurses(long personId) {
+        List<KursEntity> resultList = kursRepo.findAll();
+        for (KursEntity kurs : personalsTeilnehmer(personId)) {
+            resultList.remove(kurs);
+        }
+        for (KursEntity kurs : personalsInteressanter(personId)) {
+            resultList.remove(kurs);
+
+        }
+        return resultList;
 
     }
 }

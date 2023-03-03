@@ -40,24 +40,36 @@ public class ZuordnungController {
     }
 
     @GetMapping("/personAlsTeilnehmer/{personId}")
-    public ResponseEntity<List<Zuordnung>> getPersonAlsTeilnehmer(@PathVariable("personId") long personId) {
-        List<Zuordnung> result = zuordnungService.personalsTeilnehmer(personId);
+    public ResponseEntity<List<KursEntity>> getPersonAlsTeilnehmer(@PathVariable("personId") long personId) {
+        List<KursEntity> result = zuordnungService.personalsTeilnehmer(personId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("/personAlsInteressanter/{personId}")
-    public ResponseEntity<List<Zuordnung>> getPersonAlsInteressanter(@PathVariable("personId") long personId) {
-        List<Zuordnung> result = zuordnungService.personalsInteressanter(personId);
+    public ResponseEntity<List<KursEntity>> getPersonAlsInteressanter(@PathVariable("personId") long personId) {
+        List<KursEntity> result = zuordnungService.personalsInteressanter(personId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @GetMapping("/kursTeilnehmer/{kursId}")
-    public ResponseEntity<List<Zuordnung>> getKursTeilnehmer(@PathVariable("kursId") long kursId) {
-        List<Zuordnung> result = zuordnungService.teilnehmerListe(kursId);
+    public ResponseEntity<List<PersonEntity>> getKursTeilnehmer(@PathVariable("kursId") long kursId) {
+        List<PersonEntity> result = zuordnungService.teilnehmerListe(kursId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @GetMapping("/kursInteressanter/{kursId}")
-    public ResponseEntity<List<Zuordnung>> getKursInteressanter(@PathVariable("kursId") long kursId) {
-        List<Zuordnung> result = zuordnungService.interessanterListe(kursId);
+    public ResponseEntity<List<PersonEntity>> getKursInteressanter(@PathVariable("kursId") long kursId) {
+        List<PersonEntity> result = zuordnungService.interessanterListe(kursId);
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    @GetMapping("/remainingKurs/{personId}")
+    public ResponseEntity<List<KursEntity>>getRemainingKurs(@PathVariable("personId") long personId){
+        List<KursEntity> result = zuordnungService.remainingKurses(personId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+
+    }
+    @GetMapping("/remainingPersonen/{kursId}")
+    public ResponseEntity<List<PersonEntity>>getRemainingPersonen(@PathVariable("kursId") long kursId){
+        List<PersonEntity> result = zuordnungService.remainingPersonen(kursId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+
     }
 }
