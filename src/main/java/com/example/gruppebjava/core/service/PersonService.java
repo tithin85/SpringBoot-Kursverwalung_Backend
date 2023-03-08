@@ -1,7 +1,9 @@
 package com.example.gruppebjava.core.service;
 
 import com.example.gruppebjava.core.domain.PersonEntity;
+import com.example.gruppebjava.core.domain.Zuordnung;
 import com.example.gruppebjava.core.repo.PersonRepo;
+import com.example.gruppebjava.core.repo.ZuordnungRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +13,14 @@ import java.util.List;
 public class PersonService {
 
     private final PersonRepo personRepo;
+    private final ZuordnungRepo zuordnungRepo;
 
     @Autowired
 
-    public PersonService(PersonRepo personRepo){
+    public PersonService(PersonRepo personRepo,ZuordnungRepo zuordnungRepo){
         this.personRepo= personRepo;
+        this.zuordnungRepo=zuordnungRepo;
+
 
     }
 
@@ -38,6 +43,10 @@ public class PersonService {
     }
 
     public void deletePerson (Long id){
+        List<Zuordnung>zuordnungsListe=zuordnungRepo.findAll();
+        for(Zuordnung zu:zuordnungsListe){
+            if(zu.getPersonId()==id)zuordnungRepo.delete(zu);
+        }
         /*List<PersonEntity>persons=personRepo.findAll();
         for(PersonEntity person:persons){
             if(person.getId()==id)personRepo.delete(person);

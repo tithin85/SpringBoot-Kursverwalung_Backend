@@ -42,6 +42,9 @@ public class ZuordnungService {
         return null;
 
     }
+    public  Zuordnung updateTeilnahmeStatus(Zuordnung zuordnung){
+        return zuordnungRepo.save(zuordnung);
+    }
 
     public List<Zuordnung> findZuordnungListe() {
         return zuordnungRepo.findAll();

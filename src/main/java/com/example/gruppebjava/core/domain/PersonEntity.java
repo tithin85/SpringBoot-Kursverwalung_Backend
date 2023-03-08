@@ -37,6 +37,7 @@ public class PersonEntity {
     @Column(name = "telefon", length = 100)
     private String telefon;
 
+
     public PersonEntity(String name, String vorname, String strasse, String plz, String ort, String email) {
 
         this.name = name;
@@ -51,6 +52,7 @@ public class PersonEntity {
     public PersonEntity() {
 
     }
+
 
     public long getId() {
         return id;

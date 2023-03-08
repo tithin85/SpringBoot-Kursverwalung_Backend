@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/zuordnung")
+@CrossOrigin("http://localhost:4200")
 public class ZuordnungController {
     private final ZuordnungService zuordnungService;
 
@@ -32,6 +33,14 @@ public class ZuordnungController {
         Zuordnung zu = zuordnungService.addPersonAlsTeilnehmer(zuordnung);
         return new ResponseEntity<>(zu, HttpStatus.OK);
     }
+    @PutMapping("/updateTeilnahme")
+    public ResponseEntity<Zuordnung>updateTeilnahme(@RequestBody Zuordnung zuordnung) {
+        Zuordnung zuordnung1=zuordnungService.updateTeilnahmeStatus(zuordnung);
+        return new ResponseEntity<>(zuordnung1, HttpStatus.OK);
+    }
+
+
+
 
     @DeleteMapping("/delete/{personId}/{kursId}")
     public ResponseEntity<?> deleteById(@PathVariable("personId") long personId, @PathVariable("kursId") long kursId) {
@@ -40,13 +49,13 @@ public class ZuordnungController {
     }
 
     @GetMapping("/personAlsTeilnehmer/{personId}")
-    public ResponseEntity<List<KursEntity>> getPersonAlsTeilnehmer(@PathVariable("personId") long personId) {
+    public ResponseEntity<List<KursEntity>> getTeilnehmeKurse(@PathVariable("personId") long personId) {
         List<KursEntity> result = zuordnungService.personalsTeilnehmer(personId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("/personAlsInteressanter/{personId}")
-    public ResponseEntity<List<KursEntity>> getPersonAlsInteressanter(@PathVariable("personId") long personId) {
+    public ResponseEntity<List<KursEntity>> getInteressierteKurse(@PathVariable("personId") long personId) {
         List<KursEntity> result = zuordnungService.personalsInteressanter(personId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

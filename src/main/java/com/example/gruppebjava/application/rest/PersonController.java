@@ -23,7 +23,7 @@ public class PersonController {
     }
 
     @GetMapping("/all")
-    @CrossOrigin("http://localhost:4200")
+    //@CrossOrigin("http://localhost:4200")
     public ResponseEntity<List<PersonEntity>> getAllPersons() {
         List<PersonEntity> persons = personService.findAllPersons();
         return new ResponseEntity<>(persons, HttpStatus.OK);
