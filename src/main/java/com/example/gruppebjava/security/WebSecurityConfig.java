@@ -61,18 +61,14 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
         .authorizeHttpRequests().requestMatchers("/api/**").permitAll()
 
             .and()
-            .authorizeHttpRequests().requestMatchers("test/**").authenticated()
-        .anyRequest().authenticated();
+            .authorizeHttpRequests()
+            .requestMatchers("/homekurslist","/homekursdetails/(\\d+)","/home").permitAll()
 
-/*    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-      return http.csrf().disable()
-              .authorizeHttpRequests()
-              .requestMatchers("/person/welcome","/person/personen","/user/newUser","/user/users").permitAll()
-              .and()
-              .authorizeHttpRequests().requestMatchers("/person/**").authenticated()
-              .and().formLogin()
-              .and().build();
-    }*/
+            .and()
+            .authorizeHttpRequests().requestMatchers("test/**").authenticated()
+        .anyRequest().authenticated()
+
+    ;
     
     http.authenticationProvider(authenticationProvider());
 

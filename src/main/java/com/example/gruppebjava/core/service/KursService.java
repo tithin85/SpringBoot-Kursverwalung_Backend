@@ -7,6 +7,7 @@ import com.example.gruppebjava.core.repo.ZuordnungRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,6 +36,10 @@ public class KursService {
         return kursRepo.findAll();
     }
 
+    public List<KursEntity> findAllKursesByStatus(String status) {
+        return kursRepo.findAllByStatus(status);
+    }
+
     public KursEntity findKursById(Long id){
         return kursRepo.findKursEntityById(id);
     }
@@ -52,6 +57,5 @@ public class KursService {
 
         kursRepo.delete(findKursById(id));
     }
-
 
 }

@@ -6,7 +6,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name="kurs")
@@ -127,7 +126,6 @@ public class KursEntity implements Serializable {
     public void setEndeDatum() {
         long dat = startDatum.getTime() + ((Math.round((float) getAnzahlTage() / getWieOftinWoche())) * 7 * 86400000L);
         this.endeDatum = new Date(dat);
-
     }
 
     public int getAktuelleTnZahl() {
@@ -235,7 +233,4 @@ public class KursEntity implements Serializable {
                 ", status='" + status + '\'' +
                '}';
     }
-
-
-
 }

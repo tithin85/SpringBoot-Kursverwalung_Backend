@@ -51,10 +51,4 @@ public class KursController {
         return getAllKurse();
     }
 
-
-
-
-
-
-
 }
