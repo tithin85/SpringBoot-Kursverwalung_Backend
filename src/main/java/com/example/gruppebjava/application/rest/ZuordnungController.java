@@ -3,6 +3,7 @@ package com.example.gruppebjava.application.rest;
 import com.example.gruppebjava.core.domain.KursEntity;
 import com.example.gruppebjava.core.domain.PersonEntity;
 import com.example.gruppebjava.core.domain.Zuordnung;
+import com.example.gruppebjava.core.service.KursService;
 import com.example.gruppebjava.core.service.ZuordnungService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,11 @@ import java.util.List;
 @CrossOrigin("http://localhost:4200")
 public class ZuordnungController {
     private final ZuordnungService zuordnungService;
+    private final KursService kursService;
 
-    public ZuordnungController(ZuordnungService zuordnungService) {
+    public ZuordnungController(ZuordnungService zuordnungService,KursService kursService) {
         this.zuordnungService = zuordnungService;
+        this.kursService=kursService;
     }
 
     @GetMapping("/all")
@@ -31,12 +34,23 @@ public class ZuordnungController {
 
     public ResponseEntity<Zuordnung> addAllZuordnungListe(@RequestBody Zuordnung zuordnung) {
         Zuordnung zu = zuordnungService.addPersonAlsTeilnehmer(zuordnung);
+        int teilnehmerZahl=zuordnungService.getAktuelleTeilnehmerZahl(zu.getKursId());
+        KursEntity kurs=kursService.findKursById(zu.getKursId());
+        kurs.setAktuelleTnZahl(teilnehmerZahl);
+        kurs.setFreiePlaetze();
+        kursService.updateKurs(kurs);
+
         return new ResponseEntity<>(zu, HttpStatus.OK);
     }
     @PutMapping("/updateTeilnahme")
     public ResponseEntity<Zuordnung>updateTeilnahme(@RequestBody Zuordnung zuordnung) {
-        Zuordnung zuordnung1=zuordnungService.updateTeilnahmeStatus(zuordnung);
-        return new ResponseEntity<>(zuordnung1, HttpStatus.OK);
+        Zuordnung zu=zuordnungService.updateTeilnahmeStatus(zuordnung);
+        int teilnehmerZahl=zuordnungService.getAktuelleTeilnehmerZahl(zu.getKursId());
+        KursEntity kurs=kursService.findKursById(zu.getKursId());
+        kurs.setAktuelleTnZahl(teilnehmerZahl);
+        kurs.setFreiePlaetze();
+        kursService.updateKurs(kurs);
+        return new ResponseEntity<>(zu, HttpStatus.OK);
     }
 
 
@@ -45,6 +59,11 @@ public class ZuordnungController {
     @DeleteMapping("/delete/{personId}/{kursId}")
     public ResponseEntity<?> deleteById(@PathVariable("personId") long personId, @PathVariable("kursId") long kursId) {
         zuordnungService.deleteZuordnung(personId, kursId);
+        int teilnehmerZahl=zuordnungService.getAktuelleTeilnehmerZahl(kursId);
+        KursEntity kurs=kursService.findKursById(kursId);
+        kurs.setAktuelleTnZahl(teilnehmerZahl);
+        kurs.setFreiePlaetze();
+        kursService.updateKurs(kurs);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

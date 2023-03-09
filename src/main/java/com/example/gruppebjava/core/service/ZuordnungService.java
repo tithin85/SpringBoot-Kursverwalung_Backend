@@ -33,7 +33,10 @@ public class ZuordnungService {
         for (PersonEntity person : personlist) {
             if (person.getId() == zuordnung.getPersonId()) {
                 for (KursEntity kurs : kursList) {
-                    if (kurs.getId() == zuordnung.getKursId()) return zuordnungRepo.save(zuordnung);
+                    if (kurs.getId() == zuordnung.getKursId()){
+
+                        return zuordnungRepo.save(zuordnung);
+                    }
                 }
             }
         }
@@ -92,6 +95,10 @@ public class ZuordnungService {
         return resultList;
 
 
+    }
+    public int getAktuelleTeilnehmerZahl(long kursId){
+        List<PersonEntity> resultList=teilnehmerListe(kursId);
+        return resultList.size();
     }
 
     public List<PersonEntity> interessanterListe(long kursId) {

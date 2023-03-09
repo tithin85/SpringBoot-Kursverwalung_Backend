@@ -158,8 +158,8 @@ public class KursEntity implements Serializable {
         return freiePlaetze;
     }
 
-    public void setFreiePlaetze(int freiePlaetze) {
-        this.freiePlaetze = freiePlaetze;
+    public void setFreiePlaetze() {
+        this.freiePlaetze=this.maxTnZahl-this.aktuelleTnZahl;
     }
 
     public double getGebuehrBrutto() {

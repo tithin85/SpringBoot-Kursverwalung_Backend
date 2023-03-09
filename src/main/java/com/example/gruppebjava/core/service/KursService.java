@@ -27,6 +27,7 @@ public class KursService {
         kurs.setMwstEuro();
         kurs.setGebuehrNetto();
         kurs.setEndeDatum();
+        kurs.setFreiePlaetze();
         return kursRepo.save(kurs);
     }
 
