@@ -93,9 +93,8 @@ public class ZuordnungService {
 
         }
         return resultList;
-
-
     }
+
     public int getAktuelleTeilnehmerZahl(long kursId){
         List<PersonEntity> resultList=teilnehmerListe(kursId);
         return resultList.size();
