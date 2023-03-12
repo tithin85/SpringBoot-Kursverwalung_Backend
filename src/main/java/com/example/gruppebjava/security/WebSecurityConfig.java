@@ -62,10 +62,10 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 
             .and()
             .authorizeHttpRequests()
-            .requestMatchers("/homekurslist","/homekursdetails/(\\d+)","/home").permitAll()
+            .requestMatchers("/homekurslist","/homekursdetails/(\\d+)","/home","../assets/images/**").permitAll()
 
             .and()
-            .authorizeHttpRequests().requestMatchers("test/**").authenticated()
+            .authorizeHttpRequests().requestMatchers("test/**").permitAll()
         .anyRequest().authenticated()
 
     ;
