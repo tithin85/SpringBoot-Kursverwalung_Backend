@@ -77,7 +77,7 @@ public class PersonController {
         }
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=\"Personenliste.pdf\"");
-        FileInputStream inputStream = new FileInputStream(new File("src/main/resources/static/download/Personenliste.pdf"));
+        FileInputStream inputStream = new FileInputStream("src/main/resources/static/download/Personenliste.pdf");
         IOUtils.copy(inputStream, response.getOutputStream());
         response.flushBuffer();
     }
