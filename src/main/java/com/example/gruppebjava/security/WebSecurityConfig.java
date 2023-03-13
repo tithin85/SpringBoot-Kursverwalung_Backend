@@ -65,7 +65,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
             .requestMatchers("/homekurslist","/homekursdetails/(\\d+)","/home","../assets/images/**").permitAll()
 
             .and()
-            .authorizeHttpRequests().requestMatchers("test/**").permitAll()
+            .authorizeHttpRequests().requestMatchers("test/**").authenticated()
         .anyRequest().authenticated()
 
     ;
@@ -77,3 +77,4 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     return http.build();
   }
 }
+ // ,"/pdf/**","/**"

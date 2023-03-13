@@ -33,7 +33,7 @@ import static com.itextpdf.layout.properties.TextAlignment.RIGHT;
 public class CreatePdfService {
 
     // Zu erzeugende Dateien
-    private final String SPEICHERPFAD = "target/pdf/";
+    private final String SPEICHERPFAD = "src/main/resources/static/download/";
 
     // Layout-Elemente
     private Color bgColor = LIGHT_GRAY;
@@ -94,6 +94,7 @@ public class CreatePdfService {
      */
 // PDF für die Liste aller Personen
     public void createPersonenListePdf() throws IOException {
+
         String headline = "Liste aller gespeicherten Personen (Stand: " + aktuellesDatum + ")";
         String metaSubject = "Personenliste";
         //gerade Zahl
@@ -104,7 +105,7 @@ public class CreatePdfService {
             ordner.mkdir();
         }
 
-        String PERSONENLISTEPDF = SPEICHERPFAD + "Personenliste.pdf";
+        String PERSONENLISTEPDF = SPEICHERPFAD + "Personenliste.pdf";System.out.println(PERSONENLISTEPDF);
         PdfDocument pdf = new PdfDocument(
                 new PdfWriter(PERSONENLISTEPDF,
                         new WriterProperties()
