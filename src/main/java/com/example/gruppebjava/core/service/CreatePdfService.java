@@ -60,11 +60,12 @@ public class CreatePdfService {
 
     private final PersonRepo personRepo;
     private final KursRepo kursRepo;
-    private ZuordnungService zuordnungService;
+    private final ZuordnungService zuordnungService;
 
-    public CreatePdfService(PersonRepo personRepo, KursRepo kursRepo) {
+    public CreatePdfService(PersonRepo personRepo, KursRepo kursRepo, ZuordnungService zuordnungService) {
         this.personRepo = personRepo;
         this.kursRepo = kursRepo;
+        this.zuordnungService = zuordnungService;
     }
 
     // Alle Personen holen

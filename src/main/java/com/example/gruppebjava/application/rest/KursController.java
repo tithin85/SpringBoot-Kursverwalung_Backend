@@ -5,6 +5,7 @@ import com.example.gruppebjava.core.repo.KursRepo;
 import com.example.gruppebjava.core.repo.PersonRepo;
 import com.example.gruppebjava.core.service.CreatePdfService;
 import com.example.gruppebjava.core.service.KursService;
+import com.example.gruppebjava.core.service.ZuordnungService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.http.HttpStatus;
@@ -24,11 +25,13 @@ public class KursController {
     private final KursService kursService;
     private final PersonRepo personRepo;
     private final KursRepo kursRepo;
+    private final ZuordnungService zuordnungService;
 
-    public KursController(KursService kursService, PersonRepo personRepo, KursRepo kursRepo) {
+    public KursController(KursService kursService, PersonRepo personRepo, KursRepo kursRepo, ZuordnungService zuordnungService) {
         this.kursService = kursService;
         this.personRepo = personRepo;
         this.kursRepo = kursRepo;
+        this.zuordnungService = zuordnungService;
     }
 
 
@@ -64,7 +67,7 @@ public class KursController {
 
     @GetMapping("/pdf-kursliste")
     void pdfKursListe(HttpServletResponse response) throws IOException {
-        CreatePdfService pdfKurs = new CreatePdfService(personRepo, kursRepo);
+        CreatePdfService pdfKurs = new CreatePdfService(personRepo, kursRepo, zuordnungService);
         try{
             pdfKurs.createKursListePdf();
         }catch(IOException e){

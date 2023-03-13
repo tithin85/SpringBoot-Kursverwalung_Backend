@@ -3,6 +3,7 @@ package com.example.gruppebjava.application.rest;
 import com.example.gruppebjava.core.domain.PersonEntity;
 import com.example.gruppebjava.core.service.CreatePdfService;
 import com.example.gruppebjava.core.service.PersonService;
+import com.example.gruppebjava.core.service.ZuordnungService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.http.HttpStatus;
@@ -25,12 +26,14 @@ public class PersonController {
     private final PersonService personService;
     private final PersonRepo personRepo;
     private final KursRepo kursRepo;
+    private final ZuordnungService zuordnungService;
 
 
-    public PersonController(PersonService personService, PersonRepo personRepo, KursRepo kursRepo) {
+    public PersonController(PersonService personService, PersonRepo personRepo, KursRepo kursRepo, ZuordnungService zuordnungService) {
         this.personService = personService;
         this.personRepo = personRepo;
         this.kursRepo = kursRepo;
+        this.zuordnungService = zuordnungService;
     }
 
     @GetMapping("/all")
@@ -66,7 +69,7 @@ public class PersonController {
 
     @GetMapping("/pdf-personenliste")
     void pdfPersonListe(HttpServletResponse response) throws IOException {
-        CreatePdfService pdfPersonen = new CreatePdfService(personRepo, kursRepo);
+        CreatePdfService pdfPersonen = new CreatePdfService(personRepo, kursRepo, zuordnungService);
         try{
             pdfPersonen.createPersonenListePdf();
         }catch(IOException e){
