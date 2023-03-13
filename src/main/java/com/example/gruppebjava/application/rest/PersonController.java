@@ -11,13 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.gruppebjava.core.repo.KursRepo;
 import com.example.gruppebjava.core.repo.PersonRepo;
-import org.springframework.web.servlet.view.RedirectView;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/person")
@@ -73,7 +70,7 @@ public class PersonController {
         try{
             pdfPersonen.createPersonenListePdf();
         }catch(IOException e){
-            System.out.println("Fehler beim Schreiben der Pdf-Datei!");
+            System.out.println("Fehler beim Schreiben der Personen-Pdf-Datei!");
         }
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=\"Personenliste.pdf\"");

@@ -154,7 +154,7 @@ public class CreatePdfService {
      * @throws IOException the io exception
      */
 // PDF für die Liste aller Kurse
-    public void createKurseListePdf() throws IOException {
+    public void createKursListePdf() throws IOException {
         String headline = "Liste aller gespeicherten Kurse (Stand: " + aktuellesDatum + ")";
         String metaSubject = "Kurseliste";
         //gerade Zahl
@@ -166,7 +166,7 @@ public class CreatePdfService {
             ordner.mkdir();
         }
 
-        String KURSELISTEPDF = SPEICHERPFAD + "Kurseliste.pdf";
+        String KURSELISTEPDF = SPEICHERPFAD + "Kursliste.pdf";System.out.println(KURSELISTEPDF);
         PdfDocument pdf = new PdfDocument(
                 new PdfWriter(KURSELISTEPDF,
                         new WriterProperties()
