@@ -1,6 +1,5 @@
 package com.example.gruppebjava.application.rest;
 
-
 import com.example.gruppebjava.core.domain.PersonEntity;
 import com.example.gruppebjava.core.service.PersonService;
 import org.springframework.http.HttpStatus;
@@ -12,7 +11,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/person")
 @CrossOrigin("http://localhost:4200")
-
 
 public class PersonController {
 
@@ -36,7 +34,6 @@ public class PersonController {
     }
 
     @GetMapping("/find/{id}")
-
     public ResponseEntity<PersonEntity> getPersonById(@PathVariable("id") Long id) {
         PersonEntity person  = personService.findPersonById(id);
         return new ResponseEntity<>(person, HttpStatus.OK);
