@@ -311,15 +311,38 @@ public class CreatePdfService {
      */
 // Daten für die Liste aller Personen holen und formatieren
     public String personToPDF(PersonEntity person) {
-        return person.getAnrede() + " " +
-                person.getTitel() + " " +
-                person.getVorname() + " " +
-                person.getName() + neueZeile +
-                person.getPlz() + " " +
-                person.getOrt() + " " +
-                person.getStrasse() + neueZeile +
-                person.getEmail() + tabulator +
-                person.getTelefon();
+        StringBuilder ausgabezeile = new StringBuilder();
+        if (person.getAnrede() != null) {
+            ausgabezeile.append(person.getAnrede());
+        }
+        if (person.getTitel() != null) {
+            ausgabezeile.append(" ").append(person.getTitel());
+        }
+        if (person.getVorname() != null) {
+            ausgabezeile.append(" ").append(person.getVorname());
+        }
+        if (person.getName() != null) {
+            ausgabezeile.append(" ").append(person.getName());
+        }
+        ausgabezeile.append(neueZeile);
+        if (person.getPlz() != null) {
+            ausgabezeile.append(person.getPlz());
+        }
+        if (person.getOrt() != null) {
+            ausgabezeile.append(" ").append(person.getOrt());
+        }
+        if (person.getStrasse() != null) {
+            ausgabezeile.append(" ").append(person.getStrasse());
+        }
+        ausgabezeile.append(neueZeile);
+        if (person.getEmail() != null) {
+            ausgabezeile.append(person.getEmail());
+        }
+        ausgabezeile.append(tabulator);
+        if (person.getTelefon() != null) {
+            ausgabezeile.append(person.getTelefon());
+        }
+        return ausgabezeile.toString();
     }
 
     /**
@@ -330,7 +353,7 @@ public class CreatePdfService {
      */
 // Daten für die Liste aller Kurse holen und formatieren
     public String kursToPDF(KursEntity kurs) {
-        return kurs.getName() + "\tStatus: " + kurs.getStatus() + neueZeile +
+        return kurs.getName()  + tabulator + "Status: " + kurs.getStatus() + neueZeile +
                 "Start: " + dateOhneZeit.format(kurs.getStartDatum()) + tabulator +
                 "Ende: " + dateOhneZeit.format(kurs.getEndeDatum()) + tabulator +
                 "Dauer: " + kurs.getAnzahlTage() + " Tage" + neueZeile +
@@ -350,10 +373,21 @@ public class CreatePdfService {
      */
 // Personen-Daten für die Anwesenheitsliste holen und formatieren
     public String teilnehmerPersonToPDF(PersonEntity person) {
-        return person.getAnrede() + " " +
-                person.getTitel() + " " +
-                person.getVorname() + " " +
-                person.getName() + neueZeile;
+        StringBuilder ausgabezeile = new StringBuilder();
+        if (person.getAnrede() != null) {
+            ausgabezeile.append(person.getAnrede());
+        }
+        if (person.getTitel() != null) {
+            ausgabezeile.append(" ").append(person.getTitel());
+        }
+        if (person.getVorname() != null) {
+            ausgabezeile.append(" ").append(person.getVorname());
+        }
+        if (person.getName() != null) {
+            ausgabezeile.append(" ").append(person.getName());
+        }
+        ausgabezeile.append(neueZeile);
+        return ausgabezeile.toString();
     }
 
     // Metadaten die in den PDF-Infos gespeichert werden

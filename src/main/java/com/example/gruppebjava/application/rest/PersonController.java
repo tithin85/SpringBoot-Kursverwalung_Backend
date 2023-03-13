@@ -67,7 +67,7 @@ public class PersonController {
         return getAllPersons();
     }
 
-    @GetMapping("/pdf/all")
+    @GetMapping("/pdf-personenliste")
     void pdfPersonListe(HttpServletResponse response) throws IOException {
         CreatePdfService pdfPersonen = new CreatePdfService(personRepo, kursRepo);
         try{
