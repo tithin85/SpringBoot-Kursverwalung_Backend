@@ -45,6 +45,11 @@ public class KursService {
     }
 
     public KursEntity updateKurs(KursEntity kurs){
+        kurs.setMwstEuro();
+        kurs.setGebuehrNetto();
+        kurs.setEndeDatum();
+        kurs.setFreiePlaetze();
+
         return kursRepo.save(kurs);
     }
 
