@@ -12,8 +12,5 @@ public interface KursRepo extends JpaRepository<KursEntity,Long> {
 
     List<KursEntity> findAllByStatus(String status);
 
-
     void deleteKursEntityById(Long id);
-
-
 }
