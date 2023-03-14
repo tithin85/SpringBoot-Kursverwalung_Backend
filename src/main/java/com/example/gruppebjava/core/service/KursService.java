@@ -56,6 +56,7 @@ public class KursService {
         kurs.setEndeDatum();
         kurs.setFreiePlaetze();
 
+
         return kursRepo.save(kurs);
     }
 

@@ -53,9 +53,9 @@ public class KursController {
         return  new ResponseEntity<>(kurs, HttpStatus.OK);
     }
     @PutMapping("/update")
-    public ResponseEntity<List<KursEntity>> updateKurs(@RequestBody KursEntity kurs){
+    public ResponseEntity<KursEntity> updateKurs(@RequestBody KursEntity kurs){
         KursEntity updatetKurs = kursService.updateKurs(kurs);
-        return getAllKurse();
+        return new ResponseEntity<>(updatetKurs, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
