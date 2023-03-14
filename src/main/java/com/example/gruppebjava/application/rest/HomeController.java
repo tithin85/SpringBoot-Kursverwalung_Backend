@@ -32,6 +32,11 @@ public class HomeController {
         KursEntity kurs=kursService.findKursById(id);
         return  new ResponseEntity<>(kurs, HttpStatus.OK);
     }
+
+    @GetMapping("/person")
+    public String personIndex() {
+        return "personIndex.html";
+    }
 }
 
 
