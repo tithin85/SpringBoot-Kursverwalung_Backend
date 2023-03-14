@@ -12,17 +12,24 @@
 	<groupId>com.example.gruppebjava</groupId>
 	<artifactId>GruppeBJavaApplication</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>GruppeBJavaApplication</name>
 	<description>Kursverwaltung Gruppe B SWE2022/2023 Modul 8</description>
 
 	<properties>
-		<java.version>17</java.version>
+		<java.version>18</java.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -81,6 +88,7 @@
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itext7-core</artifactId>
 			<version>7.2.5</version>
+			<type>pom</type>
 		</dependency>
 		<!-- wird fuer iText gebraucht
 		<dependency>
@@ -97,6 +105,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>oKgruppeB</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
