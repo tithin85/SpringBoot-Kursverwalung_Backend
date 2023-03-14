@@ -26,7 +26,6 @@ public class KursEntity implements Serializable {
     @Max(7)
     @Column(nullable = false)
     private int wieOftinWoche;
-    @Future
     @DateTimeFormat
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
