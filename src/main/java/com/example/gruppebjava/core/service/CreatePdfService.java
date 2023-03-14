@@ -33,7 +33,7 @@ import static com.itextpdf.layout.properties.TextAlignment.RIGHT;
 public class CreatePdfService {
 
     // Zu erzeugende Dateien
-    private final String SPEICHERPFAD = "target/pdf/";
+    private final String SPEICHERPFAD = "src/main/resources/static/download/";
 
     // Layout-Elemente
     private Color bgColor = LIGHT_GRAY;
@@ -60,11 +60,12 @@ public class CreatePdfService {
 
     private final PersonRepo personRepo;
     private final KursRepo kursRepo;
-    private ZuordnungService zuordnungService;
+    private final ZuordnungService zuordnungService;
 
-    public CreatePdfService(PersonRepo personRepo, KursRepo kursRepo) {
+    public CreatePdfService(PersonRepo personRepo, KursRepo kursRepo, ZuordnungService zuordnungService) {
         this.personRepo = personRepo;
         this.kursRepo = kursRepo;
+        this.zuordnungService = zuordnungService;
     }
 
     // Alle Personen holen
@@ -94,6 +95,7 @@ public class CreatePdfService {
      */
 // PDF für die Liste aller Personen
     public void createPersonenListePdf() throws IOException {
+
         String headline = "Liste aller gespeicherten Personen (Stand: " + aktuellesDatum + ")";
         String metaSubject = "Personenliste";
         //gerade Zahl
@@ -104,7 +106,7 @@ public class CreatePdfService {
             ordner.mkdir();
         }
 
-        String PERSONENLISTEPDF = SPEICHERPFAD + "Personenliste.pdf";
+        String PERSONENLISTEPDF = SPEICHERPFAD + "Personenliste.pdf";System.out.println(PERSONENLISTEPDF);
         PdfDocument pdf = new PdfDocument(
                 new PdfWriter(PERSONENLISTEPDF,
                         new WriterProperties()
@@ -153,7 +155,7 @@ public class CreatePdfService {
      * @throws IOException the io exception
      */
 // PDF für die Liste aller Kurse
-    public void createKurseListePdf() throws IOException {
+    public void createKursListePdf() throws IOException {
         String headline = "Liste aller gespeicherten Kurse (Stand: " + aktuellesDatum + ")";
         String metaSubject = "Kurseliste";
         //gerade Zahl
@@ -165,7 +167,7 @@ public class CreatePdfService {
             ordner.mkdir();
         }
 
-        String KURSELISTEPDF = SPEICHERPFAD + "Kurseliste.pdf";
+        String KURSELISTEPDF = SPEICHERPFAD + "Kursliste.pdf";System.out.println(KURSELISTEPDF);
         PdfDocument pdf = new PdfDocument(
                 new PdfWriter(KURSELISTEPDF,
                         new WriterProperties()
@@ -310,15 +312,38 @@ public class CreatePdfService {
      */
 // Daten für die Liste aller Personen holen und formatieren
     public String personToPDF(PersonEntity person) {
-        return person.getAnrede() + " " +
-                person.getTitel() + " " +
-                person.getVorname() + " " +
-                person.getName() + neueZeile +
-                person.getPlz() + " " +
-                person.getOrt() + " " +
-                person.getStrasse() + neueZeile +
-                person.getEmail() + tabulator +
-                person.getTelefon();
+        StringBuilder ausgabezeile = new StringBuilder();
+        if (person.getAnrede() != null) {
+            ausgabezeile.append(person.getAnrede());
+        }
+        if (person.getTitel() != null) {
+            ausgabezeile.append(" ").append(person.getTitel());
+        }
+        if (person.getVorname() != null) {
+            ausgabezeile.append(" ").append(person.getVorname());
+        }
+        if (person.getName() != null) {
+            ausgabezeile.append(" ").append(person.getName());
+        }
+        ausgabezeile.append(neueZeile);
+        if (person.getPlz() != null) {
+            ausgabezeile.append(person.getPlz());
+        }
+        if (person.getOrt() != null) {
+            ausgabezeile.append(" ").append(person.getOrt());
+        }
+        if (person.getStrasse() != null) {
+            ausgabezeile.append(" ").append(person.getStrasse());
+        }
+        ausgabezeile.append(neueZeile);
+        if (person.getEmail() != null) {
+            ausgabezeile.append(person.getEmail());
+        }
+        ausgabezeile.append(tabulator);
+        if (person.getTelefon() != null) {
+            ausgabezeile.append(person.getTelefon());
+        }
+        return ausgabezeile.toString();
     }
 
     /**
@@ -329,7 +354,7 @@ public class CreatePdfService {
      */
 // Daten für die Liste aller Kurse holen und formatieren
     public String kursToPDF(KursEntity kurs) {
-        return kurs.getName() + "\tStatus: " + kurs.getStatus() + neueZeile +
+        return kurs.getName()  + tabulator + "Status: " + kurs.getStatus() + neueZeile +
                 "Start: " + dateOhneZeit.format(kurs.getStartDatum()) + tabulator +
                 "Ende: " + dateOhneZeit.format(kurs.getEndeDatum()) + tabulator +
                 "Dauer: " + kurs.getAnzahlTage() + " Tage" + neueZeile +
@@ -349,10 +374,21 @@ public class CreatePdfService {
      */
 // Personen-Daten für die Anwesenheitsliste holen und formatieren
     public String teilnehmerPersonToPDF(PersonEntity person) {
-        return person.getAnrede() + " " +
-                person.getTitel() + " " +
-                person.getVorname() + " " +
-                person.getName() + neueZeile;
+        StringBuilder ausgabezeile = new StringBuilder();
+        if (person.getAnrede() != null) {
+            ausgabezeile.append(person.getAnrede());
+        }
+        if (person.getTitel() != null) {
+            ausgabezeile.append(" ").append(person.getTitel());
+        }
+        if (person.getVorname() != null) {
+            ausgabezeile.append(" ").append(person.getVorname());
+        }
+        if (person.getName() != null) {
+            ausgabezeile.append(" ").append(person.getName());
+        }
+        ausgabezeile.append(neueZeile);
+        return ausgabezeile.toString();
     }
 
     // Metadaten die in den PDF-Infos gespeichert werden

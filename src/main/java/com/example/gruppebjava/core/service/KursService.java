@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 
 @Service
@@ -25,6 +26,11 @@ public class KursService {
     }
 
     public KursEntity addKurs(KursEntity kurs){
+        Date today=new Date();
+       if( kurs.getStartDatum().before(today)){
+           return null;
+
+       }
         kurs.setMwstEuro();
         kurs.setGebuehrNetto();
         kurs.setEndeDatum();

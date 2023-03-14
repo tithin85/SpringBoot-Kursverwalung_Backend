@@ -58,14 +58,14 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     http.cors().and().csrf().disable()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-        .authorizeHttpRequests().requestMatchers("/api/**").permitAll()
+        .authorizeHttpRequests().requestMatchers("/api/**", "/api/auth/**").permitAll()
 
             .and()
             .authorizeHttpRequests()
             .requestMatchers("/homekurslist","/homekursdetails/(\\d+)","/home","../assets/images/**").permitAll()
 
             .and()
-            .authorizeHttpRequests().requestMatchers("test/**").permitAll()
+            .authorizeHttpRequests().requestMatchers("test/**").authenticated()
         .anyRequest().authenticated()
 
     ;
@@ -77,3 +77,4 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     return http.build();
   }
 }
+ // ,"/pdf/**","/**"

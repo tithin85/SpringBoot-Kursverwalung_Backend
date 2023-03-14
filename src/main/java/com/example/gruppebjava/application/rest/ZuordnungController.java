@@ -3,12 +3,21 @@ package com.example.gruppebjava.application.rest;
 import com.example.gruppebjava.core.domain.KursEntity;
 import com.example.gruppebjava.core.domain.PersonEntity;
 import com.example.gruppebjava.core.domain.Zuordnung;
+import com.example.gruppebjava.core.repo.KursRepo;
+import com.example.gruppebjava.core.repo.PersonRepo;
+import com.example.gruppebjava.core.service.CreatePdfService;
 import com.example.gruppebjava.core.service.KursService;
 import com.example.gruppebjava.core.service.ZuordnungService;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -17,10 +26,16 @@ import java.util.List;
 public class ZuordnungController {
     private final ZuordnungService zuordnungService;
     private final KursService kursService;
+    private final PersonRepo personRepo;
+    private final KursRepo kursRepo;
+    private final SimpleDateFormat dateOhneZeit = new SimpleDateFormat("dd.MM.yyyy");
+    private final String datum = dateOhneZeit.format(new Date());
 
-    public ZuordnungController(ZuordnungService zuordnungService,KursService kursService) {
+    public ZuordnungController(ZuordnungService zuordnungService,KursService kursService, PersonRepo personRepo, KursRepo kursRepo) {
         this.zuordnungService = zuordnungService;
         this.kursService=kursService;
+        this.personRepo = personRepo;
+        this.kursRepo = kursRepo;
     }
 
     @GetMapping("/all")
@@ -99,5 +114,23 @@ public class ZuordnungController {
         List<PersonEntity> result = zuordnungService.remainingPersonen(kursId);
         return new ResponseEntity<>(result, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/pdf-anwesenheitsliste/{kursId}")
+    void pdfKursListe(HttpServletResponse response, @PathVariable("kursId") long kursId) throws IOException {
+        CreatePdfService pdfKurs = new CreatePdfService(personRepo, kursRepo, zuordnungService);
+        try{
+            pdfKurs.createAnwesenheitslistePdf(kursId, datum);
+        }catch(IOException e){
+            System.out.println("Fehler beim Schreiben der Kurs-Pdf-Datei!");
+        }
+        response.setContentType("application/pdf");
+        String pdfname = "Anwesenheitsliste_"
+                + pdfKurs.aktuellerKurs(kursId).getName().replace(" ", "_")
+                + "_" + datum + ".pdf";
+        response.setHeader("Content-Disposition", "attachment; filename=pdfname");
+        FileInputStream inputStream = new FileInputStream("src/main/resources/static/download/" + pdfname);
+        IOUtils.copy(inputStream, response.getOutputStream());
+        response.flushBuffer();
     }
 }
