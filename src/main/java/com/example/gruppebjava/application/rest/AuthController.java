@@ -74,7 +74,7 @@ public class AuthController {
 
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-    if (userRepo.count() < 1) {
+//    if (userRepo.count() < 1) {
       if (userRepo.existsByUsername(signUpRequest.getUsername())) {
         return ResponseEntity
                 .badRequest()
@@ -125,10 +125,10 @@ public class AuthController {
       userRepo.save(user);
 
       return ResponseEntity.ok(new MessageResponse("Die Registrierung war erfolgreich!"));
-    } else {
-      return ResponseEntity
-              .badRequest()
-              .body(new MessageResponse("Error: Es wurde bereits ein User eingerichtet!"));
-    }
+//    } else {
+//      return ResponseEntity
+//              .badRequest()
+//              .body(new MessageResponse("Error: Es wurde bereits ein User eingerichtet!"));
+//    }
   }
 }
